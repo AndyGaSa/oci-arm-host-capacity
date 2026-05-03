@@ -43,6 +43,7 @@ jobs:
           if echo "$OUTPUT" | grep -q "Out of host capacity"; then
             echo "status=capacity" >> $GITHUB_OUTPUT
             echo "❌ Out of capacity — will retry"
+            exit 1
           elif echo "$OUTPUT" | grep -q "NotAuthorizedOrNotFound"; then
             echo "status=auth_error" >> $GITHUB_OUTPUT
             echo "🔐 Auth error"
@@ -53,6 +54,7 @@ jobs:
           else
             echo "status=unknown" >> $GITHUB_OUTPUT
             echo "$OUTPUT"
+            exit 1
           fi
 
       - name: Notify Telegram on success
